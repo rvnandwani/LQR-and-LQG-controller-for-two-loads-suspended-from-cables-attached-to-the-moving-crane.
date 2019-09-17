@@ -1,0 +1,86 @@
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and export to LaTeX again.
+
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{epstopdf}
+\usepackage{matlab}
+
+\sloppy
+\epstopdfsetup{outdir=./}
+\graphicspath{ {./C_Linearization_images/} }
+
+\begin{document}
+
+\begin{matlabcode}
+%% First Component: Part C
+
+syms M m1 m2 l1 l2 F g
+
+A = [0 1 0 0 0 0 ;
+    0 0 ((-m1*g)/M) 0 (-m2*g)/M 0;
+    0 0 0 1 0 0;
+    0 0 ((-g*(m1+M))/(M*l1)) 0 (-g*(m2)/(M*l1)) 0;
+    0 0 0 0 0 1;
+    0 0 (-g*(m1))/(M*l2) 0 (-g*(m2+M)/(M*l2)) 0];
+
+B = [0; 1/M; 0 ; 1/(M*l1); 0 ; 1/(M*l2)];
+C = [1 0 0 0 0 0; 0 0 1 0 0 0; 0 0 0 0 1 0];
+D = [0; 0; 0];
+
+CM = [B A*B A^2*B A^3*B A^4*B A^5*B]
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+CM = 
+    $\displaystyle \begin{array}{l}
+\left(\begin{array}{cccccc}
+0 & \frac{1}{M} & 0 & \sigma_2  & 0 & \sigma_1 \\
+\frac{1}{M} & 0 & \sigma_2  & 0 & \sigma_1  & 0\\
+0 & \frac{1}{M\,l_1 } & 0 & \sigma_6  & 0 & \sigma_4 \\
+\frac{1}{M\,l_1 } & 0 & \sigma_6  & 0 & \sigma_4  & 0\\
+0 & \frac{1}{M\,l_2 } & 0 & \sigma_5  & 0 & \sigma_3 \\
+\frac{1}{M\,l_2 } & 0 & \sigma_5  & 0 & \sigma_3  & 0
+\end{array}\right)\\
+\mathrm{}\\
+\textrm{where}\\
+\mathrm{}\\
+\;\;\sigma_1 =\frac{\frac{g^2 \,m_1 \,{\left(M+m_1 \right)}}{M^2 \,l_1 }+\frac{g^2 \,m_1 \,m_2 }{M^2 \,l_2 }}{M\,l_1 }+\frac{\frac{g^2 \,m_2 \,{\left(M+m_2 \right)}}{M^2 \,l_2 }+\frac{g^2 \,m_1 \,m_2 }{M^2 \,l_1 }}{M\,l_2 }\\
+\mathrm{}\\
+\;\;\sigma_2 =-\frac{g\,m_1 }{M^2 \,l_1 }-\frac{g\,m_2 }{M^2 \,l_2 }\\
+\mathrm{}\\
+\;\;\sigma_3 =\frac{\frac{g^2 \,m_1 \,{\left(M+m_2 \right)}}{M^2 \,{l_2 }^2 }+\frac{g^2 \,m_1 \,{\left(M+m_1 \right)}}{\sigma_7 }}{M\,l_1 }+\frac{\frac{g^2 \,{{\left(M+m_2 \right)}}^2 }{M^2 \,{l_2 }^2 }+\frac{g^2 \,m_1 \,m_2 }{\sigma_7 }}{M\,l_2 }\\
+\mathrm{}\\
+\;\;\sigma_4 =\frac{\frac{g^2 \,m_2 \,{\left(M+m_1 \right)}}{M^2 \,{l_1 }^2 }+\frac{g^2 \,m_2 \,{\left(M+m_2 \right)}}{\sigma_7 }}{M\,l_2 }+\frac{\frac{g^2 \,{{\left(M+m_1 \right)}}^2 }{M^2 \,{l_1 }^2 }+\frac{g^2 \,m_1 \,m_2 }{\sigma_7 }}{M\,l_1 }\\
+\mathrm{}\\
+\;\;\sigma_5 =-\frac{g\,{\left(M+m_2 \right)}}{M^2 \,{l_2 }^2 }-\frac{g\,m_1 }{\sigma_7 }\\
+\mathrm{}\\
+\;\;\sigma_6 =-\frac{g\,{\left(M+m_1 \right)}}{M^2 \,{l_1 }^2 }-\frac{g\,m_2 }{\sigma_7 }\\
+\mathrm{}\\
+\;\;\sigma_7 =M^2 \,l_1 \,l_2 
+\end{array}$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+R = rank(CM)
+\end{matlabcode}
+\begin{matlaboutput}
+R = 6
+\end{matlaboutput}
+\begin{matlabcode}
+
+%The rank obtained for the given state space is 6, thus the system is
+%controllable. The condition 'l1' not equal to 'l2' gives the condition of
+%linearization for the system. 
+
+%If l1 = l2, the two masses, m1 and m2 will collide with each other.
+\end{matlabcode}
+
+\end{document}
